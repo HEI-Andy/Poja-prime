@@ -9,7 +9,11 @@ import com.poja.prime.repository.DummyRepository;
 import com.poja.prime.repository.DummyUuidRepository;
 import com.poja.prime.repository.model.Dummy;
 import com.poja.prime.repository.model.DummyUuid;
+
+import java.math.BigInteger;
 import java.util.List;
+import java.util.Random;
+
 import lombok.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -42,5 +46,11 @@ public class HealthController {
 
     Thread.sleep(20_000);
     return dummyUuidRepository.findById(randomUuid).map(DummyUuid::getId).orElseThrow();
+  }
+
+  @GetMapping("/new-prime")
+  public BigInteger generatePrime(){
+    BigInteger prime = BigInteger.probablePrime(10000,new Random());
+    return prime;
   }
 }
